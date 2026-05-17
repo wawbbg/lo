@@ -101,7 +101,7 @@ func Shuffle[T any](collection []T) []T {
 
 // Reverse reverses array so that the first element becomes the last,
 // the second element becomes the second to last, and so on.
-// Returns a new slice and does not modify the original.
+// Note: this returns a new slice and does not modify the original.
 func Reverse[T any](collection []T) []T {
 	result := make([]T, len(collection))
 	copy(result, collection)
