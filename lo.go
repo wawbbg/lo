@@ -88,7 +88,8 @@ func Values[K comparable, V any](in map[K]V) []V {
 	return result
 }
 
-// Shuffle returns an array of shuffled values.
+// Shuffle returns an array of shuffled values. Uses a copy of the input so
+// the original slice is never modified.
 func Shuffle[T any](collection []T) []T {
 	result := make([]T, len(collection))
 	copy(result, collection)
@@ -100,27 +101,12 @@ func Shuffle[T any](collection []T) []T {
 
 // Reverse reverses array so that the first element becomes the last,
 // the second element becomes the second to last, and so on.
+// Returns a new slice and does not modify the original.
 func Reverse[T any](collection []T) []T {
 	result := make([]T, len(collection))
 	copy(result, collection)
 	for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
 		result[i], result[j] = result[j], result[i]
-	}
-	return result
-}
-
-// Chunk returns an array of elements split into groups the length of size.
-func Chunk[T any](collection []T, size int) [][]T {
-	if size <= 0 {
-		panic("lo: chunk size must be greater than 0")
-	}
-	result := make([][]T, 0, (len(collection)+size-1)/size)
-	for i := 0; i < len(collection); i += size {
-		end := i + size
-		if end > len(collection) {
-			end = len(collection)
-		}
-		result = append(result, collection[i:end])
 	}
 	return result
 }
